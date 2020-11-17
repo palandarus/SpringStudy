@@ -1,7 +1,6 @@
 package ru.geekbrains.spring.lesson1;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
 
@@ -18,8 +17,9 @@ public class Main {
 //
 //        TestService2 testService2=context.getBean("testService2",TestService2.class);
 //        System.out.println(testService2.getValue());
-        ProductService productService=context.getBean("productService", ProductService.class);
+        ProductService productService =context.getBean("defaultProductService", ProductService.class);
         System.out.println(productService.getProductList());
+        System.out.println("Product with ID = 4 "+productService.getProductById(4l));
 
 
     }

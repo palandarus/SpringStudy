@@ -32,4 +32,10 @@ public class ProductRepository {
         productList.add(new Product(5l,"Kiwi", 150.0));
     }
 
+    public Product findById(Long id){
+        Product product = new Product(id, "", 0.0);
+        if(productList.contains(product)) return productList.get(productList.indexOf(product));
+        else return null;
+    }
+
 }

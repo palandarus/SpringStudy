@@ -37,9 +37,7 @@ private Double price;
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return id.equals(product.id) &&
-                Objects.equals(name, product.name) &&
-                Objects.equals(price, product.price);
+        return id.equals(product.id) ;
     }
 
     @Override
