@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <title>Spring MVC GeekApp</title>
+</head>
+
+<body>
+<h1>Изменить данные о товаре</h1>
+<!--/*@thymesVar id="product" type="com.geekbrains.spring.mvc.model.Product"*/-->
+<form method="POST" th:action="@{/products/edit}" th:object="${product}">
+    <input hidden th:field="*{id}"/>
+    <br>
+    Title: <input th:field="*{title}"/>
+    <br>
+    Description: <input th:field="*{description}"/>
+    <br>
+    brandId: <input th:field="*{brandId}"/>
+    <br>
+    Price: <input th:field="*{price}"/>
+    <br>
+    <input type="submit" value="Submit"/>
+</form>
+<br>
+<a th:href="@{/}">на Главную страницу</a>
+</body>
+</html>
