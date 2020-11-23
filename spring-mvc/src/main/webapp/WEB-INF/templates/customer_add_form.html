@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <title>Добавление нового клиента</title>
+</head>
+
+<body>
+<h1>Добавить нового клиента</h1>
+
+<form method="POST" th:action="@{/customers/add}">
+    <input name="name" placeholder="Введите имя клиента" type="text"/>
+    <input name="email" placeholder="Введите почту клиента" type="text"/>
+    <input name="phone" placeholder="Введите телефон клиента" type="text"/>
+    <input type="submit"/>
+</form>
+
+<br>
+<a th:href="@{/}">на Главную страницу</a>
+</body>
+</html>
