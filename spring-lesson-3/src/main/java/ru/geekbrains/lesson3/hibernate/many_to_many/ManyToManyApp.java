@@ -26,11 +26,11 @@ public class ManyToManyApp {
             EntityTransaction transaction = em.getTransaction();
             transaction.begin();
 
-            Reader reader1 = new Reader("One reader");
-            Reader reader2 = new Reader("Two reader");
+            Reader reader1 = new Reader("One reader 1");
+            Reader reader2 = new Reader("Two reader 1");
 
-            Book book1 = new Book("One book");
-            Book book2 = new Book("Two book");
+            Book book1 = new Book("One book 1");
+            Book book2 = new Book("Two book 1");
 
             List<Reader> readerList = new ArrayList<>();
             readerList.add(reader1);
@@ -80,6 +80,7 @@ public class ManyToManyApp {
         em.getTransaction().begin();
         em.createQuery("DELETE FROM Reader").executeUpdate();
         em.createQuery("DELETE FROM Book").executeUpdate();
+//        em.createQuery("DELETE FROM BOOKS_READERS").executeUpdate();
         em.getTransaction().commit();
     }
 }

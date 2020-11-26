@@ -1,12 +1,16 @@
 package ru.geekbrains.lesson3.hibernate;
 
 import org.hibernate.cfg.Configuration;
+import ru.geekbrains.lesson3.hibernate.entity.Buyer;
 import ru.geekbrains.lesson3.hibernate.entity.Category;
+import ru.geekbrains.lesson3.hibernate.entity.Goods;
 import ru.geekbrains.lesson3.hibernate.entity.Product;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HW3 {
 
@@ -30,12 +34,29 @@ public class HW3 {
                 .buildSessionFactory();
         EntityManager em = factory.createEntityManager();
 
+        final int BUYERSCOUNT = 2;
+        final int GOODSCOUNT = 2;
+        final String BUYERNAMESUFFIX = "Mr. ";
+        final String GOODSNAMESUFFIX = "Goods № ";
+
         clear(em);
         try {
             EntityTransaction transaction = em.getTransaction();
             transaction.begin();
 
+            List<Buyer> buyerList = new ArrayList<>();
+            List<Goods> goodsList = new ArrayList<>();
 
+            for (int i = 1; i <= BUYERSCOUNT; i++) {
+                buyerList.add(new Buyer(BUYERNAMESUFFIX + i));
+            }
+
+            for (int i = 1; i <= GOODSCOUNT; i++) {
+                goodsList.add(new Goods(GOODSNAMESUFFIX + i, Double.valueOf(i * 100 / i)));
+            }
+
+
+            transaction.commit();
         } finally {
             if (em != null)
                 em.close();
