@@ -23,7 +23,7 @@ public class Buyer {
             joinColumns = @JoinColumn(name = "buyer_id"),
             inverseJoinColumns = @JoinColumn(name = "goods_id")
     )
-    private List<Goods> readers = new ArrayList<>();
+    private List<Goods> goodsList = new ArrayList<>();
 
     public Buyer() {
     }
@@ -48,12 +48,12 @@ public class Buyer {
         this.name = name;
     }
 
-    public List<Goods> getReaders() {
-        return readers;
+    public List<Goods> getGoodsList() {
+        return goodsList;
     }
 
-    public void setReaders(List<Goods> readers) {
-        this.readers = readers;
+    public void setGoodsList(List<Goods> readers) {
+        this.goodsList = readers;
     }
 
     @Override

@@ -48,15 +48,29 @@ public class HW3 {
             List<Goods> goodsList = new ArrayList<>();
 
             for (int i = 1; i <= BUYERSCOUNT; i++) {
-                buyerList.add(new Buyer(BUYERNAMESUFFIX + i));
+                Buyer tempBuyer = new Buyer(BUYERNAMESUFFIX + i);
+                buyerList.add(tempBuyer);
             }
 
             for (int i = 1; i <= GOODSCOUNT; i++) {
-                goodsList.add(new Goods(GOODSNAMESUFFIX + i, Double.valueOf(i * 100 / i)));
+                Goods tempGoods = new Goods(GOODSNAMESUFFIX + i, Double.valueOf(i * 100 / i));
+                goodsList.add(tempGoods);
             }
 
+            for (Buyer buyer :
+                    buyerList) {
+                buyer.setGoodsList(goodsList);
+                em.persist(buyer);
+            }
+
+//            for (Goods goods:goodsList
+//            ) {
+//                goods.setBuyers(buyerList);
+//                em.persist(goods);
+//            }
 
             transaction.commit();
+
         } finally {
             if (em != null)
                 em.close();
