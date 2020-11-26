@@ -7,3 +7,5 @@
 .idea/uiDesigner.xml
 lesson1.iml
 pom.xml
+spring-mvc.iml
+spring-mvc.target/*

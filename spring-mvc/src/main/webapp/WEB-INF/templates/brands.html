@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <title>Spring MVC GeekApp</title>
+</head>
+
+<body>
+<h1>Список брендов:</h1>
+<table>
+    <thead>
+    <tr>
+        <td>Id</td>
+        <td>Название</td>
+        <td>Описание</td>
+    </tr>
+    </thead>
+    <tbody>
+    <!--/*@thymesVar id="brands" type="java.util.List<com.geekbrains.spring.mvc.model.Brand>"*/-->
+    <tr th:each="brand : ${brands}">
+        <td th:text="${brand.id}"></td>
+        <td th:text="${brand.title}"></td>
+        <td th:text="${brand.description}"></td>
+        <td><a th:href="@{'/brands/edit/' + ${brand.id}}">Редактировать</a></td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/}">на Главную страницу</a>
+<a th:href="@{/brands/add}">Добавить бренд</a>
+</body>
+</html>
