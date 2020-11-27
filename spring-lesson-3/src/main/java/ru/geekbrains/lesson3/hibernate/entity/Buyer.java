@@ -56,6 +56,11 @@ public class Buyer {
         this.goodsList = readers;
     }
 
+    public void addGoodsToList(Goods goods) {
+        if (!goodsList.contains(goods))
+            this.goodsList.add(goods);
+    }
+
     @Override
     public String toString() {
         return String.format("Buyer [id = %d, name = %s]", id, name);

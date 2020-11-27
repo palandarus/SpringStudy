@@ -66,6 +66,12 @@ public class Goods {
         this.buyers = buyers;
     }
 
+
+    public void addBuyersToList(Buyer buyer) {
+        if (!buyers.contains(buyer))
+            this.buyers.add(buyer);
+    }
+
     @Override
     public String toString() {
         return String.format("Goods [id = %d, name = %s, price = %f]", id, name, price);

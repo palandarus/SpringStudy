@@ -2,15 +2,14 @@ package ru.geekbrains.lesson3.hibernate;
 
 import org.hibernate.cfg.Configuration;
 import ru.geekbrains.lesson3.hibernate.entity.Buyer;
-import ru.geekbrains.lesson3.hibernate.entity.Category;
 import ru.geekbrains.lesson3.hibernate.entity.Goods;
-import ru.geekbrains.lesson3.hibernate.entity.Product;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class HW3 {
 
@@ -29,13 +28,13 @@ public class HW3 {
 
         EntityManagerFactory factory = new Configuration()
                 .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Category.class)
-                .addAnnotatedClass(Product.class)
+                .addAnnotatedClass(Buyer.class)
+                .addAnnotatedClass(Goods.class)
                 .buildSessionFactory();
         EntityManager em = factory.createEntityManager();
 
-        final int BUYERSCOUNT = 2;
-        final int GOODSCOUNT = 2;
+        final int BUYERSCOUNT = 15;
+        final int GOODSCOUNT = 100;
         final String BUYERNAMESUFFIX = "Mr. ";
         final String GOODSNAMESUFFIX = "Goods № ";
 
@@ -46,39 +45,66 @@ public class HW3 {
 
             List<Buyer> buyerList = new ArrayList<>();
             List<Goods> goodsList = new ArrayList<>();
+            List<List<Goods>> buyerGoodsList = new ArrayList<>();
 
-            for (int i = 1; i <= BUYERSCOUNT; i++) {
-                Buyer tempBuyer = new Buyer(BUYERNAMESUFFIX + i);
-                buyerList.add(tempBuyer);
-            }
+            fillGoodsList(GOODSCOUNT, GOODSNAMESUFFIX, goodsList);
+            fiilBuyerList(BUYERSCOUNT, BUYERNAMESUFFIX, buyerList);
 
-            for (int i = 1; i <= GOODSCOUNT; i++) {
-                Goods tempGoods = new Goods(GOODSNAMESUFFIX + i, Double.valueOf(i * 100 / i));
-                goodsList.add(tempGoods);
-            }
-
-            for (Buyer buyer :
-                    buyerList) {
-                buyer.setGoodsList(goodsList);
+            for (Buyer buyer : buyerList
+            ) {
+                generateBuyerOrder(GOODSCOUNT, goodsList, buyer);
                 em.persist(buyer);
             }
 
-//            for (Goods goods:goodsList
-//            ) {
-//                goods.setBuyers(buyerList);
-//                em.persist(goods);
-//            }
+            for (Goods goods :
+                    goodsList) {
+
+                em.persist(goods);
+            }
 
             transaction.commit();
 
         } finally {
-            if (em != null)
+            factory.close();
+            if (em != null) {
                 em.close();
+            }
         }
 
     }
 
-    private static void clear(EntityManager em) {
+    private static void generateBuyerOrder(int GOODSCOUNT, List<Goods> goodsList, Buyer buyer) {
+        Random rd = new Random();
+        for (int i = 0; i < GOODSCOUNT; i++) {
+            if (rd.nextBoolean()) {
 
+                Goods tempGoods = goodsList.get(i);
+                buyer.addGoodsToList(tempGoods);
+                tempGoods.addBuyersToList(buyer);
+
+            }
+        }
+    }
+
+    private static void fiilBuyerList(int BUYERSCOUNT, String BUYERNAMESUFFIX, List<Buyer> buyerList) {
+        for (int i = 1; i <= BUYERSCOUNT; i++) {
+            Buyer tempBuyer = new Buyer(BUYERNAMESUFFIX + i);
+            buyerList.add(tempBuyer);
+        }
+    }
+
+    private static void fillGoodsList(int GOODSCOUNT, String GOODSNAMESUFFIX, List<Goods> goodsList) {
+        for (int i = 1; i <= GOODSCOUNT; i++) {
+            double price = 100.0 / i;
+            Goods tempGoods = new Goods(GOODSNAMESUFFIX + i, Double.valueOf(price));
+            goodsList.add(tempGoods);
+        }
+    }
+
+    private static void clear(EntityManager em) {
+        em.getTransaction().begin();
+        em.createQuery("DELETE FROM Buyer ").executeUpdate();
+        em.createQuery("DELETE FROM Goods ").executeUpdate();
+        em.getTransaction().commit();
     }
 }
