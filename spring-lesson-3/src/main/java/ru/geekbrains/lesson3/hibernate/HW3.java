@@ -10,6 +10,7 @@ import javax.persistence.EntityTransaction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class HW3 {
 
@@ -71,18 +72,33 @@ public class HW3 {
 //                System.out.println("=====================================================");
 //            }
 
-
+            transaction.begin();
             Long buyerMaxId = em.createQuery("SELECT MAX(b.id) FROM Buyer b", Long.class).getSingleResult();
             Long goodsMaxId = em.createQuery("SELECT MAX(g.id) FROM Goods g", Long.class).getSingleResult();
-            Long buyerMinId = buyerMaxId - BUYERSCOUNT;
-            Long goodsMinId = goodsMaxId - GOODSCOUNT;
-            Buyer buyer = em.find(Buyer.class, ((new java.util.Random().nextLong() % (buyerMaxId - buyerMinId)) + buyerMinId));
-            Goods goods = em.find(Goods.class, ((new java.util.Random().nextLong() % (goodsMaxId - goodsMinId)) + goodsMinId));
-            System.out.println("Client " + buyer + " bought:");
+            Long buyerMinId = buyerMaxId - BUYERSCOUNT + 1;
+            Long goodsMinId = goodsMaxId - GOODSCOUNT + 1;
+            System.out.printf("bMaxID=%d, bMinID=%d, gMaxID=%d, gMinID=%d", buyerMaxId, buyerMinId, goodsMaxId, goodsMinId);
+            Long buyerForTestID = ThreadLocalRandom.current().nextLong(buyerMinId, buyerMaxId);
+            Long goodsForTestID = ThreadLocalRandom.current().nextLong(goodsMinId, goodsMaxId);
+            Buyer buyer = em.find(Buyer.class, buyerForTestID);
+            Goods goods = em.find(Goods.class, goodsForTestID);
+
+            System.out.println("Client " + buyerForTestID + " " + buyer + " bought:");
             System.out.println(buyer.showBuyerOrder());
-            System.out.println("Goods " + goods + "was bought by:");
+            System.out.println("Goods " + goodsForTestID + " " + goods + " was bought by:");
             System.out.println(goods.showBuyerList());
-            em.getTransaction().commit();
+            System.out.println("DELETING buyer " + buyer);
+            System.out.println("DELETING goods " + goods);
+            em.remove(buyer);
+            em.remove(goods);
+            transaction.commit();
+
+            transaction.begin();
+            buyer = em.find(Buyer.class, buyerForTestID);
+            goods = em.find(Goods.class, goodsForTestID);
+            System.out.println(buyer);
+            System.out.println(goods);
+            transaction.commit();
 
         } finally {
             factory.close();
