@@ -72,6 +72,15 @@ public class Goods {
             this.buyers.add(buyer);
     }
 
+    public String showBuyerList() {
+        StringBuilder out = new StringBuilder();
+        for (Buyer buyer : buyers
+        ) {
+            out.append("\n").append(buyer);
+        }
+        return out.toString();
+    }
+
     @Override
     public String toString() {
         return String.format("Goods [id = %d, name = %s, price = %f]", id, name, price);

@@ -61,6 +61,15 @@ public class Buyer {
             this.goodsList.add(goods);
     }
 
+    public String showBuyerOrder() {
+        StringBuilder out = new StringBuilder();
+        for (Goods goods : goodsList
+        ) {
+            out.append("\n").append(goods);
+        }
+        return out.toString();
+    }
+
     @Override
     public String toString() {
         return String.format("Buyer [id = %d, name = %s]", id, name);

@@ -64,6 +64,26 @@ public class HW3 {
 
             transaction.commit();
 
+//            for (Buyer buyer : buyerList
+//            ) {
+//                System.out.println(buyer);
+//                System.out.println(buyer.showBuyerOrder());
+//                System.out.println("=====================================================");
+//            }
+
+
+            Long buyerMaxId = em.createQuery("SELECT MAX(b.id) FROM Buyer b", Long.class).getSingleResult();
+            Long goodsMaxId = em.createQuery("SELECT MAX(g.id) FROM Goods g", Long.class).getSingleResult();
+            Long buyerMinId = buyerMaxId - BUYERSCOUNT;
+            Long goodsMinId = goodsMaxId - GOODSCOUNT;
+            Buyer buyer = em.find(Buyer.class, ((new java.util.Random().nextLong() % (buyerMaxId - buyerMinId)) + buyerMinId));
+            Goods goods = em.find(Goods.class, ((new java.util.Random().nextLong() % (goodsMaxId - goodsMinId)) + goodsMinId));
+            System.out.println("Client " + buyer + " bought:");
+            System.out.println(buyer.showBuyerOrder());
+            System.out.println("Goods " + goods + "was bought by:");
+            System.out.println(goods.showBuyerList());
+            em.getTransaction().commit();
+
         } finally {
             factory.close();
             if (em != null) {
