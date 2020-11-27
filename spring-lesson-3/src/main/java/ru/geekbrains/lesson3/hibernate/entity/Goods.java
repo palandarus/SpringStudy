@@ -73,12 +73,14 @@ public class Goods {
     }
 
     public String showBuyerList() {
-        StringBuilder out = new StringBuilder();
-        for (Buyer buyer : buyers
-        ) {
-            out.append("\n").append(buyer);
-        }
-        return out.toString();
+        if (!buyers.isEmpty()) {
+            StringBuilder out = new StringBuilder();
+            for (Buyer buyer : buyers
+            ) {
+                out.append("\n").append(buyer);
+            }
+            return out.toString();
+        } else return "this goods was not bought by anyone";
     }
 
     @Override

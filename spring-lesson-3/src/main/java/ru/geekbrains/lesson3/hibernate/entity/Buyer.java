@@ -62,12 +62,14 @@ public class Buyer {
     }
 
     public String showBuyerOrder() {
-        StringBuilder out = new StringBuilder();
-        for (Goods goods : goodsList
-        ) {
-            out.append("\n").append(goods);
-        }
-        return out.toString();
+        if (!goodsList.isEmpty()) {
+            StringBuilder out = new StringBuilder();
+            for (Goods goods : goodsList
+            ) {
+                out.append("\n").append(goods);
+            }
+            return out.toString();
+        } else return "This customer was not bought anything";
     }
 
     @Override
