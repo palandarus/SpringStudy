@@ -18,7 +18,7 @@ public class Goods {
     @Column(name = "price")
     private Double price;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany()
     @JoinTable(
             name = "orders",
             joinColumns = @JoinColumn(name = "goods_id"),

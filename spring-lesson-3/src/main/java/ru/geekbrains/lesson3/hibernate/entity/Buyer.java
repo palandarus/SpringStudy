@@ -17,7 +17,7 @@ public class Buyer {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany()
     @JoinTable(
             name = "orders",
             joinColumns = @JoinColumn(name = "buyer_id"),
