@@ -2,6 +2,8 @@ package ru.geekbrains.lesson4.main;
 
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import ru.geekbrains.lesson4.config.AppConfig;
 import ru.geekbrains.lesson4.entity.Category;
 import ru.geekbrains.lesson4.entity.Product;
@@ -36,6 +38,7 @@ public class HW4 {
         ProductRepository productRepository = applicationContext.getBean("productRepository", ProductRepository.class);
         initialize(categoryDataRepository, productRepository);
 
+
         categoryDataRepository.findAll().forEach(category -> {
             System.out.println(category);
         });
@@ -49,11 +52,14 @@ public class HW4 {
                 " * максимальной ценой из общего списка");
         System.out.println(productRepository.findMaxPricedProduct());
 
-        Category category1 = categoryDataRepository.findById(2L).get();
+        category = categoryDataRepository.findById(2L).get();
         System.out.println("Написать запросы к репозитариям и вывести товар с:\n" +
-                " * минимальной и максимальной цене в каталоге " + category1.getTitle());
-        System.out.println(productRepository.getMinAndMaxPricedProductFromCategory(category1));  //почему то попадает фрукт [Product{id=1, name='Fruit 1', price=100.0, category=Fruits}, Product{id=12, name='Vegetable 1', price=100.0, category=Vegetables}, Product{id=21, name='Vegetable 10', price=10.0, category=Vegetables}]
+                " * минимальной и максимальной цене в каталоге " + category.getTitle());
+        System.out.println(productRepository.getMinAndMaxPricedProductFromCategory(category));  //почему то попадает фрукты [Product{id=1, name='Fruit 1', price=100.0, category=Fruits}, Product{id=12, name='Vegetable 1', price=100.0, category=Vegetables}, Product{id=21, name='Vegetable 10', price=10.0, category=Vegetables}]
 
+        System.out.println("Вывод товаров из категории " + category);
+        Pageable pageable = PageRequest.of(0, 10);
+//        productRepository.findByCategory()
 
     }
 
