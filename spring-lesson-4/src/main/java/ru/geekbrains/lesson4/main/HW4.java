@@ -35,14 +35,18 @@ public class HW4 {
         CategoryDataRepository categoryDataRepository = applicationContext.getBean("categoryDataRepository", CategoryDataRepository.class);
         ProductRepository productRepository = applicationContext.getBean("productRepository", ProductRepository.class);
         initialize(categoryDataRepository, productRepository);
-
+        categoryDataRepository.findAll();
+        for (Category category : categoryDataRepository.findAll()
+        ) {
+            System.out.println("Категория :" + category);
+        }
 
     }
 
     private static void initialize(CategoryDataRepository categoryDataRepository, ProductRepository productRepository) {
 
-        categoryDataRepository.deleteAll();
-        productRepository.deleteAll();
+        //categoryDataRepository.deleteAll();
+        //productRepository.deleteAll();
 
 
         Category fruitCategory = new Category("Fruits");
