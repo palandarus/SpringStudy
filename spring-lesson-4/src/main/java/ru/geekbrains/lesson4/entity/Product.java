@@ -37,6 +37,12 @@ public class Product {
         this.price = price;
     }
 
+    public Product(String name, Double price, Category category) {
+        this.name = name;
+        this.price = price;
+        this.category = category;
+    }
+
     public Double getPrice() {
         return price;
     }
@@ -79,6 +85,14 @@ public class Product {
 
     public long getVersion() {
         return version;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Override

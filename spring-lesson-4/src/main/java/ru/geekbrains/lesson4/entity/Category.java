@@ -2,6 +2,7 @@ package ru.geekbrains.lesson4.entity;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "categories")
@@ -13,8 +14,34 @@ public class Category {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "title")
+    private String title;
 
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JoinColumn(name = "product_id")
+    private List<Product> productList;
 
+    public Category(String title) {
+        this.title = title;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+    }
 }
