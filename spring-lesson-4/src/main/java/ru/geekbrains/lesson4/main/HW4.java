@@ -49,19 +49,18 @@ public class HW4 {
         Category vegetableCategory = new Category("Vegetables");
         List<Product> fruitList = new ArrayList<>();
         List<Product> vegetableList = new ArrayList<>();
+        categoryDataRepository.save(fruitCategory);
+        categoryDataRepository.save(vegetableCategory);
 
         for (int i = 1; i <= FRUITS_COUNT; i++) {
             fruitList.add(new Product("Fruit " + i, 100.0 / i, fruitCategory));
         }
 
         for (int i = 1; i <= VEGETABLES_COUNT; i++) {
-            fruitList.add(new Product("Vegetable " + i, 100.0 / i, vegetableCategory));
+            vegetableList.add(new Product("Vegetable " + i, 100.0 / i, vegetableCategory));
         }
-
         productRepository.saveAll(fruitList);
         productRepository.saveAll(vegetableList);
-        categoryDataRepository.save(fruitCategory);
-        categoryDataRepository.save(vegetableCategory);
     }
 
 }

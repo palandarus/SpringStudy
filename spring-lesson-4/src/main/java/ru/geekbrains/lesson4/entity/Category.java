@@ -2,6 +2,7 @@ package ru.geekbrains.lesson4.entity;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,9 +18,15 @@ public class Category {
     @Column(name = "title")
     private String title;
 
-    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
-    @JoinColumn(name = "product_id")
-    private List<Product> productList;
+
+    @OneToMany(
+            mappedBy = "category",
+            fetch = FetchType.EAGER
+    )
+    List<Product> productList = new ArrayList<>();
+
+    public Category() {
+    }
 
     public Category(String title) {
         this.title = title;

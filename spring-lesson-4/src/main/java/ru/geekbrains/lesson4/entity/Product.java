@@ -41,6 +41,7 @@ public class Product {
         this.name = name;
         this.price = price;
         this.category = category;
+        this.quantity = 0l;
     }
 
     public Double getPrice() {
