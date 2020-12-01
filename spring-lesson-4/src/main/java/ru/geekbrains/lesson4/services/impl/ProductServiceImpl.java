@@ -3,6 +3,7 @@ package ru.geekbrains.lesson4.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.geekbrains.lesson4.entity.Category;
 import ru.geekbrains.lesson4.entity.Product;
 import ru.geekbrains.lesson4.repositories.ProductRepository;
 import ru.geekbrains.lesson4.services.ProductService;
@@ -53,9 +54,38 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAllByPriceGreaterThanEqual(price);
     }
 
+
     @Override
     public List<Product> findAllByPriceGreaterThanOrderByPriceDesc(Double price) {
         return productRepository.findAllByPriceGreaterThanOrderByPriceDesc(price);
     }
 
+    @Override
+    public List<Product> findMinPricedByCategoryID(Category category) {
+        return productRepository.findMinPricedByCategory(category);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Product> findMaxPricedByCategory(Category category) {
+        return productRepository.findMaxPricedByCategory(category);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Product> findMaxPricedProduct() {
+        return productRepository.findMaxPricedProduct();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Product> findMinPricedProduct() {
+        return productRepository.findMinPricedProduct();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Product> getMinAndMaxPricedProductFromCatalog(Category category) {
+        return productRepository.getMinAndMaxPricedProductFromCategory(category);
+    }
 }

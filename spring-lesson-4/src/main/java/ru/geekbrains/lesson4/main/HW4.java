@@ -24,8 +24,8 @@ import java.util.List;
 
 public class HW4 {
 
-    final static int FRUITS_COUNT = 10;
-    final static int VEGETABLES_COUNT = 8;
+    final static int FRUITS_COUNT = 210;
+    final static int VEGETABLES_COUNT = 180;
 
 
     public static void main(String[] args) {
@@ -35,19 +35,29 @@ public class HW4 {
         CategoryDataRepository categoryDataRepository = applicationContext.getBean("categoryDataRepository", CategoryDataRepository.class);
         ProductRepository productRepository = applicationContext.getBean("productRepository", ProductRepository.class);
         initialize(categoryDataRepository, productRepository);
-        categoryDataRepository.findAll();
-        for (Category category : categoryDataRepository.findAll()
-        ) {
-            System.out.println("Категория :" + category);
-        }
+
+        categoryDataRepository.findAll().forEach(category -> {
+            System.out.println(category);
+        });
+        Category category = categoryDataRepository.findById(1L).get();
+        System.out.println("Написать запросы к репозитариям и вывести товар с:\n" +
+                " * a. минимальной ценой в каталоге " + category.getTitle());
+        System.out.println(productRepository.findMinPricedByCategory(category));
+
+
+        System.out.println("Написать запросы к репозитариям и вывести товар с:\n" +
+                " * максимальной ценой из общего списка");
+        System.out.println(productRepository.findMaxPricedProduct());
+
+        Category category1 = categoryDataRepository.findById(2L).get();
+        System.out.println("Написать запросы к репозитариям и вывести товар с:\n" +
+                " * минимальной и максимальной цене в каталоге " + category1.getTitle());
+        System.out.println(productRepository.getMinAndMaxPricedProductFromCategory(category1));  //почему то попадает фрукт [Product{id=1, name='Fruit 1', price=100.0, category=Fruits}, Product{id=12, name='Vegetable 1', price=100.0, category=Vegetables}, Product{id=21, name='Vegetable 10', price=10.0, category=Vegetables}]
+
 
     }
 
     private static void initialize(CategoryDataRepository categoryDataRepository, ProductRepository productRepository) {
-
-        //categoryDataRepository.deleteAll();
-        //productRepository.deleteAll();
-
 
         Category fruitCategory = new Category("Fruits");
         Category vegetableCategory = new Category("Vegetables");
@@ -57,11 +67,11 @@ public class HW4 {
         categoryDataRepository.save(vegetableCategory);
 
         for (int i = 1; i <= FRUITS_COUNT; i++) {
-            fruitList.add(new Product("Fruit " + i, 100.0 / i, fruitCategory));
+            fruitList.add(new Product("Fruit " + i, FRUITS_COUNT * 1.0 / i, fruitCategory));
         }
 
         for (int i = 1; i <= VEGETABLES_COUNT; i++) {
-            vegetableList.add(new Product("Vegetable " + i, 100.0 / i, vegetableCategory));
+            vegetableList.add(new Product("Vegetable " + i, VEGETABLES_COUNT * 1.0 / i, vegetableCategory));
         }
         productRepository.saveAll(fruitList);
         productRepository.saveAll(vegetableList);

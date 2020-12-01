@@ -101,9 +101,8 @@ public class Product {
         return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", price='" + price + '\'' +
-                ", something='" + something + '\'' +
-                ", version=" + version +
+                ", price=" + price +
+                ", category=" + category.getTitle() +
                 '}';
     }
 }
