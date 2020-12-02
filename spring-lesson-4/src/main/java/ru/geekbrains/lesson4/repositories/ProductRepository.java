@@ -1,5 +1,7 @@
 package ru.geekbrains.lesson4.repositories;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -32,8 +34,12 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findMinPricedByCategory(@Param("category") Category category);
 
 
-    @Query("select p from Product p where (p.price=(select min(price) from Product where category = :category)) or (p.price=(select max(price) from Product where category = :category))")
+//    @Query("select p from Product p where ((p.price=(select min(p.price) from Product p where p.category = :category)) or (p.price=(select max(p.price) from Product p where p.category = :category))) and  p.category = :category")
+//    List<Product> getMinAndMaxPricedProductFromCategory(@Param("category") Category category);
+
+    @Query("select p from Product p where ((p.price=(select min(price) from Product)) or (p.price=(select max(price) from Product ))) and  p.category = :category")
     List<Product> getMinAndMaxPricedProductFromCategory(@Param("category") Category category);
 
+    Page<Product> findAllByCategory(Category category, Pageable pageable);
 
 }

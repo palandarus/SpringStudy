@@ -2,6 +2,7 @@ package ru.geekbrains.lesson4.main;
 
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import ru.geekbrains.lesson4.config.AppConfig;
@@ -57,9 +58,10 @@ public class HW4 {
                 " * минимальной и максимальной цене в каталоге " + category.getTitle());
         System.out.println(productRepository.getMinAndMaxPricedProductFromCategory(category));  //почему то попадает фрукты [Product{id=1, name='Fruit 1', price=100.0, category=Fruits}, Product{id=12, name='Vegetable 1', price=100.0, category=Vegetables}, Product{id=21, name='Vegetable 10', price=10.0, category=Vegetables}]
 
-        System.out.println("Вывод товаров из категории " + category);
+        System.out.println("Вывод товаров из категории с использованием пагинации" + category);
         Pageable pageable = PageRequest.of(0, 10);
-//        productRepository.findByCategory()
+        Page<Product> page = productRepository.findAllByCategory(category, pageable);
+        System.out.println(page.getContent());
 
     }
 

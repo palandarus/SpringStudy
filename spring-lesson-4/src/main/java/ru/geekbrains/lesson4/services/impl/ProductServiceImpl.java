@@ -9,11 +9,14 @@ import ru.geekbrains.lesson4.repositories.ProductRepository;
 import ru.geekbrains.lesson4.services.ProductService;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
 
     private ProductRepository productRepository;
+    private Collectors IterableUtils;
 
     @Autowired
     public void setProductRepository(ProductRepository productRepository) {
@@ -23,13 +26,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional(readOnly = true)
     public Product get(Long id) {
-        return productRepository.getOne(id);
+        return productRepository.findById(id).get();
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<Product> getAll() {
-        return productRepository.findAll();
+        return StreamSupport.stream(productRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     @Override
