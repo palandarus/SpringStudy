@@ -50,6 +50,55 @@ public class SampleData {
         order2.setProduct(product2);
         order2.setCode("0002");
 
+        Order order3 = new Order();
+        order3.setCurrentPrice(product3.getPrice());
+        order3.setCustomer(customer2);
+        order3.setProduct(product3);
+        order3.setCode("0003");
+
+        Order order4 = new Order();
+        order4.setCurrentPrice(product3.getPrice());
+        order4.setCustomer(customer2);
+        order4.setProduct(product4);
+        order4.setCode("0004");
+
+        Order order5 = new Order();
+        order5.setCurrentPrice(product3.getPrice());
+        order5.setCustomer(customer2);
+        order5.setProduct(product5);
+        order5.setCode("0005");
+
+        Order order6 = new Order();
+        order6.setCurrentPrice(product6.getPrice());
+        order6.setCustomer(customer2);
+        order6.setProduct(product6);
+        order6.setCode("0006");
+
+        Order order7 = new Order();
+        order7.setCurrentPrice(product7.getPrice());
+        order7.setCustomer(customer1);
+        order7.setProduct(product7);
+        order7.setCode("0007");
+
+        Order order8 = new Order();
+        order8.setCurrentPrice(product8.getPrice());
+        order8.setCustomer(customer1);
+        order8.setProduct(product8);
+        order8.setCode("0008");
+
+
+        Order order9 = new Order();
+        order9.setCurrentPrice(product1.getPrice());
+        order9.setCustomer(customer1);
+        order9.setProduct(product1);
+        order9.setCode("0009");
+
+        Order order10 = new Order();
+        order10.setCurrentPrice(product3.getPrice());
+        order10.setCustomer(customer1);
+        order10.setProduct(product3);
+        order10.setCode("0010");
+
         productRepository.save(product1);
         productRepository.save(product2);
         productRepository.save(product3);
@@ -64,6 +113,14 @@ public class SampleData {
 
         orderRepository.save(order1);
         orderRepository.save(order2);
+        orderRepository.save(order3);
+        orderRepository.save(order4);
+        orderRepository.save(order5);
+        orderRepository.save(order6);
+        orderRepository.save(order7);
+        orderRepository.save(order8);
+        orderRepository.save(order9);
+        orderRepository.save(order10);
 
     }
 }
