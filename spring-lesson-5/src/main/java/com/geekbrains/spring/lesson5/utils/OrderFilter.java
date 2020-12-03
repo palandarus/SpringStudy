@@ -21,6 +21,24 @@ public class OrderFilter {
             filterDefinitionBuilder.append("&customer.name=").append(filterName);
         }
 
+        if (params.containsKey("currentPriceMax") && !params.get("currentPriceMax").isBlank()) {
+            Integer filterCurrentMaxPrice = Integer.parseInt(params.get("currentPriceMax"));
+            spec = spec.and(OrderSpecifications.currentPriceGreaterOrEqualsThan(filterCurrentMaxPrice));
+            filterDefinitionBuilder.append("&currentPriceMax=").append(filterCurrentMaxPrice);
+        }
+
+        if (params.containsKey("currentPriceMin") && !params.get("currentPriceMin").isBlank()) {
+            Integer filterCurrentMinPrice = Integer.parseInt(params.get("currentPriceMin"));
+            spec = spec.and(OrderSpecifications.currentPriceLessOrEqualsThan(filterCurrentMinPrice));
+            filterDefinitionBuilder.append("&currentPriceMin=").append(filterCurrentMinPrice);
+        }
+
+        String filterCode = params.get("code");
+        if (filterCode != null && !filterCode.isBlank()) {
+            spec = spec.and(OrderSpecifications.codeLike(filterCode));
+            filterDefinitionBuilder.append("&code=").append(filterCode);
+        }
+
         filterDefinition = filterDefinitionBuilder.toString();
     }
 
