@@ -13,6 +13,18 @@
 
 <body>
 
+<h3>Фильтр</h3>
+<form method="get" th:action="@{/orders}">
+    <div class="form-group col-md-6">
+        <label for="customerName">Имя клиента</label>
+        <input class="form-control" id="customerName" name="name"
+               th:value="${param.name != null ? param.name : null}" type="text">
+    </div>
+
+    <button class="btn btn-primary" type="submit">Применить</button>
+    <a class="btn btn-primary" th:href="@{/orders}">Очистить фильтр</a>
+</form>
+
 <div class="container">
     <div th:replace="~{fragments/navigation :: navigation(Orders)}"/>
     <h1>Список заказов</h1>
@@ -36,6 +48,25 @@
         </tr>
         </tbody>
     </table>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${orders.isFirst() ? 'disabled' : ''}">
+                <a class="page-link"
+                   th:href="@{'/orders?o=' + ${orders.previousOrFirstPageable().getPageNumber() + 1} + ${filterDefinition}}">Назад</a>
+            </li>
+
+            <li class="page-item" th:classappend="${orders.getNumber() + 1 == i ? 'active' : ''}"
+                th:each="i : ${#numbers.sequence(1, orders.getTotalPages())}">
+                <a class="page-link" th:href="@{'/orders?o=' + ${i} + ${filterDefinition}}" th:text="${i}"></a>
+            </li>
+
+            <li class="page-item" th:classappend="${orders.isLast() ? 'disabled' : ''}">
+                <a class="page-link"
+                   th:href="@{'/orders?o='+ ${orders.nextOrLastPageable().getPageNumber() + 1} + ${filterDefinition}}">Вперед</a>
+            </li>
+        </ul>
+    </nav>
 </div>
 
 </body>
