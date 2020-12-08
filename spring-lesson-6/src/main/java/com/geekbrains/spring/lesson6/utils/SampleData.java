@@ -58,6 +58,12 @@ public class SampleData {
 
         order2.setCode("0002");
 
+//
+//        productRepository.deleteAll();
+//        categoryRepository.deleteAll();
+//        orderRepository.deleteAll();
+//        customerRepository.deleteAll();
+
 
         categoryRepository.save(category1);
         categoryRepository.save(category2);

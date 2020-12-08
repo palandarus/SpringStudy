@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -28,6 +29,10 @@ public class CategoryService {
 
     public Page<Category> findAll(int page, int size) {
         return categoryRepository.findAll(PageRequest.of(page, size));
+    }
+
+    public List<Category> findAll() {
+        return categoryRepository.findAll();
     }
 
     public Category addCategory(Category category) {

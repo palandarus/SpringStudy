@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name = "categories")
 public class Category {
 
-    @OneToMany(mappedBy = "category", cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+    @OneToMany(mappedBy = "category")
     List<Product> products;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
