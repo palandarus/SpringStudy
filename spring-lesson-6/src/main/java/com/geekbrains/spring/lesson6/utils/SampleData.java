@@ -38,6 +38,14 @@ public class SampleData {
         Product product2 = new Product("Lemon", 70., category1);
         Product product3 = new Product("Lime", 20., category1);
         Product product4 = new Product("Mango", 110., category1);
+        Product product9 = new Product("Mango2", 110., category1);
+        Product product10 = new Product("Mango3", 110., category1);
+        Product product11 = new Product("Mango4", 110., category1);
+        Product product12 = new Product("Mango5", 110., category1);
+        Product product13 = new Product("Mango6", 110., category1);
+        Product product14 = new Product("Mango7", 110., category1);
+        Product product15 = new Product("Mango8", 110., category1);
+        Product product16 = new Product("Mango9", 110., category1);
         Product product5 = new Product("Apple", 95., category1);
         Product product6 = new Product("Pineapple", 76., category1);
         Product product7 = new Product("Avocado", 123., category2);
@@ -58,11 +66,6 @@ public class SampleData {
 
         order2.setCode("0002");
 
-//
-//        productRepository.deleteAll();
-//        categoryRepository.deleteAll();
-//        orderRepository.deleteAll();
-//        customerRepository.deleteAll();
 
 
         categoryRepository.save(category1);
@@ -77,6 +80,14 @@ public class SampleData {
         productRepository.save(product6);
         productRepository.save(product7);
         productRepository.save(product8);
+        productRepository.save(product9);
+        productRepository.save(product10);
+        productRepository.save(product11);
+        productRepository.save(product12);
+        productRepository.save(product13);
+        productRepository.save(product14);
+        productRepository.save(product15);
+        productRepository.save(product16);
 
         customerRepository.save(customer1);
         customerRepository.save(customer2);
