@@ -45,6 +45,7 @@
             <th>ID</th>
             <th>Фотография</th>
             <th>Название</th>
+            <th>Категория</th>
             <th>Цена</th>
             <th>Дата создания</th>
             <th>Дата изменения</th>
@@ -58,6 +59,9 @@
                 <img th:src="@{/img/no_image_available.png}" th:width="50"/>
             </td>
             <td th:text="${p.title}"/>
+            <td>
+                <a class="page-link" th:href="@{'/categories/'+${p.category.id}}" th:text="${p.category.title}"></a>
+            </td>
             <td th:text="#{text.products.price(${p.price})}"/>
             <td th:text="${{p.createDate}}"/>
             <td th:text="${{p.modifyDate}}"/>

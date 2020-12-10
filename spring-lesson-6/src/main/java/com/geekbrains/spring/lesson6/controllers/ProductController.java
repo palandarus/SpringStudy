@@ -1,7 +1,9 @@
 package com.geekbrains.spring.lesson6.controllers;
 
+import com.geekbrains.spring.lesson6.entities.Category;
 import com.geekbrains.spring.lesson6.entities.Product;
 import com.geekbrains.spring.lesson6.exceptions.ResourceNotFoundException;
+import com.geekbrains.spring.lesson6.services.CategoryService;
 import com.geekbrains.spring.lesson6.services.ProductService;
 import com.geekbrains.spring.lesson6.utils.ProductFilter;
 import org.springframework.data.domain.Page;
@@ -12,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -19,9 +22,12 @@ import java.util.Map;
 public class ProductController {
 
     private ProductService productService;
+    private CategoryService categoryService;
 
-    public ProductController(ProductService productService) {
+
+    public ProductController(ProductService productService, CategoryService categoryService) {
         this.productService = productService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping
@@ -67,6 +73,8 @@ public class ProductController {
     public String showEditForm(@PathVariable Long id, Model model) {
         Product p = productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product with id: " + id + " doesn't exists (for edit)"));
         model.addAttribute("product", p);
+        List<Category> categoryList = categoryService.findAll();
+        model.addAttribute("categoryList", categoryList);
         return "product_edit_form";
     }
 

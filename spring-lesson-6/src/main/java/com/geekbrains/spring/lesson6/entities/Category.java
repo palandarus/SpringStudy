@@ -1,5 +1,6 @@
 package com.geekbrains.spring.lesson6.entities;
 
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -7,27 +8,24 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name = "products")
-public class Product {
+@Table(name = "categories")
+public class Category {
+
+    @OneToMany(mappedBy = "category")
+    List<Product> products;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
     @NotEmpty
     @Size(min = 3, max = 20, message = "Title must have 3-20 characters")
     @Column(name = "title")
     private String title;
-
-    @Column(name = "price")
-    private Double price;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
-
+    @Column(name = "description")
+    private String description;
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date", updatable = false)
@@ -38,21 +36,12 @@ public class Product {
     @Column(name = "modify_date")
     private Date modifyDate;
 
-    public Product() {
+    public Category() {
     }
 
-    public Product(String title, Double price, Category category) {
+    public Category(@NotEmpty @Size(min = 3, max = 20, message = "Title must have 3-20 characters") String title, String description) {
         this.title = title;
-        this.price = price;
-        this.category = category;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.description = description;
     }
 
     public String getTitle() {
@@ -63,12 +52,20 @@ public class Product {
         this.title = title;
     }
 
-    public Double getPrice() {
-        return price;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public Date getCreateDate() {
@@ -87,20 +84,7 @@ public class Product {
         this.modifyDate = modifyDate;
     }
 
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", price=" + price +
-                '}';
+    public Long getId() {
+        return id;
     }
 }
