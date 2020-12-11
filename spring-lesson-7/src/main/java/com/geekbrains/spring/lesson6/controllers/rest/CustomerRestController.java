@@ -1,8 +1,6 @@
 package com.geekbrains.spring.lesson6.controllers.rest;
 
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.geekbrains.spring.lesson6.data.CustomerData;
 import com.geekbrains.spring.lesson6.entities.Customer;
 import com.geekbrains.spring.lesson6.exceptions.ResourceNotFoundException;
 import com.geekbrains.spring.lesson6.facade.CustomerFacade;
@@ -20,7 +18,7 @@ public class CustomerRestController {
     private CustomerService customerService;
     private CustomerFacade customerFacade;
 
-    public CustomerRestController(CustomerService productService, CustomerFacade productFacade) {
+    public CustomerRestController(CustomerService customerService, CustomerFacade customerFacade) {
         this.customerService = customerService;
         this.customerFacade = customerFacade;
     }
@@ -39,7 +37,7 @@ public class CustomerRestController {
     public Customer getProductById(
             @PathVariable("id") Long id
     ) {
-        return customerService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product id=" + id + " not found"));
+        return customerService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer id=" + id + " not found"));
     }
 
     @PostMapping
@@ -66,7 +64,7 @@ public class CustomerRestController {
         customerService.remove(id);
     }
 
-    @GetMapping(value = "/jsonData/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+   /* @GetMapping(value = "/jsonData/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public CustomerData customerDataToJson(
             @PathVariable Long id
@@ -99,7 +97,7 @@ public class CustomerRestController {
     @ResponseBody
     public List<Customer> CustomerFullPlainToJson() {
         return customerService.findAll();
-    }
+    }*/
 
 
 }

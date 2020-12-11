@@ -1,5 +1,8 @@
 package com.geekbrains.spring.lesson6.entities;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.geekbrains.spring.lesson6.entities.views.CustomerView;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -12,6 +15,7 @@ import java.util.List;
 public class Customer extends AbstractItem {
 
     @Column(name = "name")
+    @JsonView(CustomerView.IdNameEmailPhoneBirthdayAddressDescriptionCustomer.class)
     private String name;
 
     @Column(name = "email")
