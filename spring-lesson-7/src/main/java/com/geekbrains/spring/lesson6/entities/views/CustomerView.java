@@ -9,4 +9,8 @@ public final class CustomerView extends CommonView {
 
     }
 
+    public interface FullInfoCustomer extends IdNameEmailPhoneBirthdayAddressDescriptionCustomer, OrderView.IdCodePrice {
+
+    }
+
 }

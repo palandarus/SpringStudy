@@ -14,26 +14,33 @@ import java.util.List;
 @Table(name = "customers")
 public class Customer extends AbstractItem {
 
+
     @Column(name = "name")
     @JsonView(CustomerView.IdNameEmailPhoneBirthdayAddressDescriptionCustomer.class)
     private String name;
 
     @Column(name = "email")
+    @JsonView(CustomerView.IdNameEmailPhoneBirthdayAddressDescriptionCustomer.class)
     private String email;
 
     @Column(name = "phone")
+    @JsonView(CustomerView.IdNameEmailPhoneBirthdayAddressDescriptionCustomer.class)
     private String phone;
 
     @Column(name = "birthday")
+    @JsonView(CustomerView.IdNameEmailPhoneBirthdayAddressDescriptionCustomer.class)
     private Date birthday;
 
     @Column(name = "address")
+    @JsonView(CustomerView.IdNameEmailPhoneBirthdayAddressDescriptionCustomer.class)
     private String address;
 
     @Column(name = "description")
+    @JsonView(CustomerView.IdNameEmailPhoneBirthdayAddressDescriptionCustomer.class)
     private String description;
 
     @OneToMany(mappedBy = "customer")
+    @JsonView(CustomerView.FullInfoCustomer.class)
     private List<Order> orders;
 
     public Customer() {

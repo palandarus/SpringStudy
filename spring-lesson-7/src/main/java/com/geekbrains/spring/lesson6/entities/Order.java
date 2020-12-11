@@ -21,7 +21,7 @@ public class Order extends AbstractItem {
     private Customer customer;
 
     @Column(name = "totalPrice")
-    @JsonView(OrderView.IdCodePriceCustomer.class)
+    @JsonView(OrderView.IdCodePrice.class)
     private Double totalPrice;
 
     @OneToMany(mappedBy = "order", cascade = {CascadeType.REMOVE, CascadeType.PERSIST})

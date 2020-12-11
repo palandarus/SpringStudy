@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.geekbrains.spring.lesson6.entities.views.CommonView;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import java.util.Date;

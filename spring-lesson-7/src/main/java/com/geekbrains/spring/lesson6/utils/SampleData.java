@@ -52,11 +52,19 @@ public class SampleData {
 
         order2.setCode("0002");
 
+        Order order3 = new Order();
+        order1.setTotalPrice(product1.getPrice());
+        order1.setCustomer(customer1);
+
+        order1.setCode("0003");
+
         OrderEntry orderEntry1 = new OrderEntry(product1, order1);
         OrderEntry orderEntry2 = new OrderEntry(product2, order1);
         OrderEntry orderEntry3 = new OrderEntry(product3, order1);
         OrderEntry orderEntry4 = new OrderEntry(product4, order2);
         OrderEntry orderEntry5 = new OrderEntry(product5, order2);
+        OrderEntry orderEntry6 = new OrderEntry(product4, order3);
+        OrderEntry orderEntry7 = new OrderEntry(product5, order3);
 
         productRepository.save(product1);
         productRepository.save(product2);
@@ -72,6 +80,7 @@ public class SampleData {
 
         orderRepository.save(order1);
         orderRepository.save(order2);
+        orderRepository.save(order3);
 
     }
 }
