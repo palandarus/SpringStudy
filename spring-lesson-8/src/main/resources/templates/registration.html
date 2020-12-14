@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <title>Registration form</title>
+    <th:block th:replace="~{fragments/resources :: head/link}"></th:block>
+    <th:block th:replace="~{fragments/resources :: head/script}"></th:block>
+</head>
+<body>
+<div class="container">
+    <!--/*@thymesVar id="product" type="com.geekbrains.spring.lesson8.data.UserData"*/-->
+    <form class="form-signin" method="post" th:action="@{/registration}" th:object="${userData}">
+        <h2 class="form-signin-heading">Join the our STORE</h2>
+        <p>
+            <label class="sr-only" for="name">Name</label>
+            <input autofocus class="form-control" id="name" name="name" placeholder="name" required type="text">
+        <p th:class="text-danger" th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Incorrect name</p>
+        </p>
+        <p>
+            <label class="sr-only" for="username">Login</label>
+            <input autofocus class="form-control" id="username" name="username" placeholder="Login" required
+                   type="text">
+        <p th:class="text-danger" th:errors="*{username}" th:if="${#fields.hasErrors('username')}">Incorrect Login</p>
+        </p>
+        <p>
+            <label class="sr-only" for="email">Email</label>
+            <input class="form-control" id="email" name="email" placeholder="Email" type="text">
+        </p>
+        <p>
+            <label class="sr-only" for="phone">Phone</label>
+            <input class="form-control" id="phone" name="phone" placeholder="Phone" type="text">
+        </p>
+        <p>
+            <label class="sr-only" for="password">Password</label>
+            <input class="form-control" id="password" name="password" placeholder="Password" required type="password">
+        <p th:class="text-danger" th:errors="*{password}" th:if="${#fields.hasErrors('password')}">Incorrect
+            password</p>
+        </p>
+        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+</div>
+</body>
+</html>
