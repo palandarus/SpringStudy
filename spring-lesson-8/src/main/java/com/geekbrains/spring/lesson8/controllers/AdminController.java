@@ -2,11 +2,14 @@ package com.geekbrains.spring.lesson8.controllers;
 
 import com.geekbrains.spring.lesson8.entities.Order;
 import com.geekbrains.spring.lesson8.entities.Product;
+import com.geekbrains.spring.lesson8.entities.User;
 import com.geekbrains.spring.lesson8.exceptions.ResourceNotFoundException;
 import com.geekbrains.spring.lesson8.services.OrderService;
 import com.geekbrains.spring.lesson8.services.ProductService;
+import com.geekbrains.spring.lesson8.services.UserService;
 import com.geekbrains.spring.lesson8.utils.OrderFilter;
 import com.geekbrains.spring.lesson8.utils.ProductFilter;
+import com.geekbrains.spring.lesson8.utils.UserFilter;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
@@ -26,10 +29,12 @@ public class AdminController {
 
     private ProductService productService;
     private OrderService orderService;
+    private UserService userService;
 
-    public AdminController(ProductService productService, OrderService orderService) {
+    public AdminController(ProductService productService, OrderService orderService, UserService userService) {
         this.productService = productService;
         this.orderService = orderService;
+        this.userService = userService;
     }
 
 
@@ -40,7 +45,7 @@ public class AdminController {
 
     }
 
-    @Secured({"ROLE_ADMIN", "ROLE_MANAGER"})
+    @Secured({"ROLE_ADMIN", "ROLE_SUPER_ADMIN", "ROLE_MANAGER"})
     @GetMapping("/products")
     public String showAllProducts(Model model,
                                   @RequestParam(defaultValue = "1", name = "p") Integer page,
@@ -55,6 +60,22 @@ public class AdminController {
 
         return "products";
     }
+
+    @Secured({"ROLE_ADMIN", "ROLE_SUPER_ADMIN"})
+    @GetMapping("/users")
+    public String showAllUsers(Model model,
+                               @RequestParam(defaultValue = "1", name = "p") Integer page,
+                               @RequestParam Map<String, String> params
+    ) {
+        page = (page < 1) ? 1 : page;
+        UserFilter userFilter = new UserFilter(params);
+        Page<User> users = userService.findAll(userFilter.getSpec(), page - 1, 5);
+        model.addAttribute("users", users);
+        model.addAttribute("filterDefinition", userFilter.getFilterDefinition());
+
+        return "users";
+    }
+
 
     @Secured({"ROLE_ADMIN"})
     @GetMapping("/add")

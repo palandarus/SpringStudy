@@ -65,6 +65,9 @@
                     <li class="nav-item" sec:authorize="hasAnyRole('ADMIN','SUPER_ADMIN', 'MANAGER')">
                         <a class="nav-link" th:href="@{/admin/orders}" th:text="${'All orders'}"></a>
                     </li>
+                    <li class="nav-item" sec:authorize="hasAnyRole('ADMIN','SUPER_ADMIN')">
+                        <a class="nav-link" th:href="@{/admin/users}" th:text="${'All users'}"></a>
+                    </li>
                 </ul>
             </div>
         </div>

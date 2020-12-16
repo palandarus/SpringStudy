@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Каталог товаров</title>
+    <th:block th:replace="~{fragments/resources :: head/link}"></th:block>
+    <th:block th:replace="~{fragments/resources :: head/script}"></th:block>
+</head>
+<body>
+<div class="container">
+    <div th:replace="~{fragments/navigation :: navigation(Users)}"/>
+    <h1>Каталог товаров</h1>
+    <h3>Фильтр</h3>
+    <form method="get" th:action="@{/admin/users}">
+        <div class="form-group col-md-6">
+            <label for="nameInput">Имя</label>
+            <input class="form-control" id="nameInput" name="name"
+                   th:value="${param.name != null ? param.name : null}" type="text">
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="usernameInput">Username</label>
+            <input class="form-control" id="usernameInput" name="username"
+                   th:value="${param.username != null ? param.username : null}" type="text">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="addressInput">Адрес</label>
+            <input class="form-control" id="addressInput" name="address"
+                   th:value="${param.address != null ? param.address : null}" type="text">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="emailInput">Email</label>
+            <input class="form-control" id="emailInput" name="email"
+                   th:value="${param.email != null ? param.email : null}" type="text">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="phoneInput">Телефон</label>
+            <input class="form-control" id="phoneInput" name="phone"
+                   th:value="${param.phone != null ? param.phone : null}" type="text">
+        </div>
+
+        <button class="btn btn-primary" type="submit">Применить</button>
+        <a class="btn btn-primary" th:href="@{/admin/users}">Очистить фильтр</a>
+        <a class="btn btn-primary" sec:authorize="hasAnyRole('ADMIN','SUPER_ADMIN')" th:href="@{/admin/users/add}">Добавить
+            нового пользователя</a>
+    </form>
+
+    <br>
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Имя</th>
+            <th>Адрес</th>
+            <th>Email</th>
+            <th>Телефон</th>
+            <th>Дата изменения</th>
+            <th>Действие</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="u : ${users}">
+            <td th:text="${u.id}"/>
+            <td th:text="${u.username}"/>
+            <td th:text="#{u.name}"/>
+            <td th:text="${u.address}"/>
+            <td th:text="${u.email}"/>
+            <td th:text="${u.phone}"/>
+            <td th:text="${u.createDate}"/>
+            <td>
+                <a class="btn btn-danger" sec:authorize="hasAnyRole('ADMIN','SUPER_ADMIN')"
+                   th:href="@{'/admin/users/edit/' + ${u.id}}">Изменить</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${users.isFirst() ? 'disabled' : ''}">
+                <a class="page-link"
+                   th:href="@{'/admin/users?p=' + ${users.previousOrFirstPageable().getPageNumber() + 1} + ${filterDefinition}}">Назад</a>
+            </li>
+
+            <li class="page-item" th:classappend="${users.getNumber() + 1 == i ? 'active' : ''}"
+                th:each="i : ${#numbers.sequence(1, users.getTotalPages())}">
+                <a class="page-link" th:href="@{'/admin/users?p=' + ${i} + ${filterDefinition}}" th:text="${i}"></a>
+            </li>
+
+            <li class="page-item" th:classappend="${users.isLast() ? 'disabled' : ''}">
+                <a class="page-link"
+                   th:href="@{'/admin/users?p='+ ${users.nextOrLastPageable().getPageNumber() + 1} + ${filterDefinition}}">Вперед</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+</body>
+</html>
