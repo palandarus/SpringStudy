@@ -5,6 +5,9 @@ import com.geekbrains.spring.lesson8.entities.Order;
 import com.geekbrains.spring.lesson8.entities.views.OrderView;
 import com.geekbrains.spring.lesson8.services.OrderService;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 

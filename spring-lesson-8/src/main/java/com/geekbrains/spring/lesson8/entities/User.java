@@ -2,6 +2,7 @@ package com.geekbrains.spring.lesson8.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;

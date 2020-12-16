@@ -49,6 +49,7 @@ public class SampleData {
         Role role1 = new Role("ROLE_USER");
         Role role2 = new Role("ROLE_ADMIN");
         Role role3 = new Role("ROLE_SUPER_ADMIN");
+        Role role4 = new Role("ROLE_MANAGER");
 
         User user1 = new User("Alex", "test@test1.com", "79000000001", new Date(), "Russia, SPb, Leninskiy street 10-10", "something");
         user1.setUsername("alex");
@@ -68,6 +69,12 @@ public class SampleData {
         user3.setUsername("anonymousUser");
         user3.setName("anonymousUser");
         user3.getRoles().add(role1);
+
+        User user4 = new User();
+        user4.setUsername("itc");
+        user4.setName("itc");
+        user4.setPassword("$2y$12$kppL/79H63sx3NoXlZhY/uDW2EiB18ByX8YeENyFwyxAnHjrCT4pK");
+        user4.getRoles().add(role4);
 
 //        User user4 = new User();
 //        user4.setUsername("admin");
@@ -112,11 +119,12 @@ public class SampleData {
         roleRepository.save(role1);
         roleRepository.save(role2);
         roleRepository.save(role3);
+        roleRepository.save(role4);
 
         userRepository.save(user1);
         userRepository.save(user2);
         userRepository.save(user3);
-        //userRepository.save(user4);
+        userRepository.save(user4);
 
         orderRepository.save(order1);
         orderRepository.save(order2);

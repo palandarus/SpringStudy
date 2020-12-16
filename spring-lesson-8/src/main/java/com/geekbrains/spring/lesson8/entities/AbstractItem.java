@@ -6,6 +6,7 @@ import com.geekbrains.spring.lesson8.entities.views.CommonView;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import javax.persistence.*;
 import java.util.Date;
 
 @MappedSuperclass

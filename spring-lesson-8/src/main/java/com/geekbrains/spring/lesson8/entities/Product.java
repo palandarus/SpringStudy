@@ -3,6 +3,7 @@ package com.geekbrains.spring.lesson8.entities;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.geekbrains.spring.lesson8.entities.views.ProductView;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 

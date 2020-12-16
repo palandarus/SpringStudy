@@ -13,6 +13,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -31,7 +32,15 @@ public class AdminController {
         this.orderService = orderService;
     }
 
-    @Secured({"ROLE_ADMIN"})
+
+    @GetMapping
+    public String main() {
+
+        return "redirect:/admin/products";
+
+    }
+
+    @Secured({"ROLE_ADMIN", "ROLE_MANAGER"})
     @GetMapping("/products")
     public String showAllProducts(Model model,
                                   @RequestParam(defaultValue = "1", name = "p") Integer page,
@@ -47,6 +56,7 @@ public class AdminController {
         return "products";
     }
 
+    @Secured({"ROLE_ADMIN"})
     @GetMapping("/add")
     public String addProduct(
             Model model
@@ -55,6 +65,7 @@ public class AdminController {
         return "product_add_form";
     }
 
+    @Secured({"ROLE_ADMIN"})
     @PostMapping("/add")
     public String addProduct(
             @Valid @ModelAttribute Product product,
@@ -67,7 +78,7 @@ public class AdminController {
         return "redirect:/products";
     }
 
-
+    @Secured({"ROLE_ADMIN"})
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
         Product p = productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product with id: " + id + " doesn't exists (for edit)"));
@@ -75,14 +86,14 @@ public class AdminController {
         return "product_edit_form";
     }
 
-
+    @Secured({"ROLE_ADMIN"})
     @PostMapping("/edit")
     public String showEditForm(@ModelAttribute Product product) {
         productService.saveOrUpdate(product);
         return "redirect:/products";
     }
 
-
+    @Secured({"ROLE_ADMIN"})
     @GetMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -91,7 +102,7 @@ public class AdminController {
         return "ok";
     }
 
-
+    @Secured({"ROLE_ADMIN", "ROLE_MANAGER"})
     @GetMapping("/orders")
     public String orders(
             @RequestParam Map<String, String> params,
@@ -103,7 +114,7 @@ public class AdminController {
         return "orders";
     }
 
-
+    @Secured({"ROLE_ADMIN"})
     @GetMapping("/orders/remove/{id}")
     public String remove(
             @PathVariable("id") Long id,
