@@ -42,7 +42,7 @@
 
         <button class="btn btn-primary" type="submit">Применить</button>
         <a class="btn btn-primary" th:href="@{/admin/users}">Очистить фильтр</a>
-        <a class="btn btn-primary" sec:authorize="hasAnyRole('ADMIN','SUPER_ADMIN')" th:href="@{/admin/users/add}">Добавить
+        <a class="btn btn-primary" sec:authorize="hasAnyRole('SUPER_ADMIN')" th:href="@{/admin/users/add}">Добавить
             нового пользователя</a>
     </form>
 
