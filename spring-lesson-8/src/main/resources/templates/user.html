@@ -51,11 +51,9 @@
                             </div>
                             <div th:each="role, stat :${roles}">
 
-
-                                <input th:field="*{roles[${stat.index}].name}" th:value="${role.id}" type="checkbox"/>
-                                <label class="custom-control-label"
-                                       th:text="${role.name}"></label>
-
+                                <input th:field="*{roles}" th:name="'role'+${role.id}" th:value="${role.id}"
+                                       type="checkbox"/>
+                                <label class="custom-control-label" th:text="${role.name}"></label>
 
                             </div>
                         </div>

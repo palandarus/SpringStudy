@@ -92,4 +92,8 @@ public class UserService implements UserDetailsService {
     public Page<User> findAll(Specification<User> spec, int page, int size) {
         return userRepository.findAll(spec, PageRequest.of(page, size));
     }
+
+    public User saveOrUpdate(User user) {
+        return userRepository.save(user);
+    }
 }

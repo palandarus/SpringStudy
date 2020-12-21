@@ -90,6 +90,13 @@ public class AdminController {
         return "user";
     }
 
+    @Secured({"ROLE_ADMIN"})
+    @PostMapping("/users/edit")
+    public String showEditForm(@ModelAttribute User user) {
+        userService.saveOrUpdate(user);
+        return "redirect:/admin/users";
+    }
+
 
     @Secured({"ROLE_ADMIN"})
     @GetMapping("/add")
