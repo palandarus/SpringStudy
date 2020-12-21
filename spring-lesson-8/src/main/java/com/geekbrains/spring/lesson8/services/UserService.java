@@ -4,6 +4,7 @@ package com.geekbrains.spring.lesson8.services;
 import com.geekbrains.spring.lesson8.data.UserData;
 import com.geekbrains.spring.lesson8.entities.Role;
 import com.geekbrains.spring.lesson8.entities.User;
+import com.geekbrains.spring.lesson8.exceptions.ResourceNotFoundException;
 import com.geekbrains.spring.lesson8.repositories.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,6 +35,10 @@ public class UserService implements UserDetailsService {
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    public User findById(long id) {
+        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id: " + id + " doesn't exists (for edit)"));
     }
 
     public User findByUsername(String username) {

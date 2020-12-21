@@ -2,10 +2,12 @@ package com.geekbrains.spring.lesson8.controllers;
 
 import com.geekbrains.spring.lesson8.entities.Order;
 import com.geekbrains.spring.lesson8.entities.Product;
+import com.geekbrains.spring.lesson8.entities.Role;
 import com.geekbrains.spring.lesson8.entities.User;
 import com.geekbrains.spring.lesson8.exceptions.ResourceNotFoundException;
 import com.geekbrains.spring.lesson8.services.OrderService;
 import com.geekbrains.spring.lesson8.services.ProductService;
+import com.geekbrains.spring.lesson8.services.RoleService;
 import com.geekbrains.spring.lesson8.services.UserService;
 import com.geekbrains.spring.lesson8.utils.OrderFilter;
 import com.geekbrains.spring.lesson8.utils.ProductFilter;
@@ -30,11 +32,13 @@ public class AdminController {
     private ProductService productService;
     private OrderService orderService;
     private UserService userService;
+    private RoleService roleService;
 
-    public AdminController(ProductService productService, OrderService orderService, UserService userService) {
+    public AdminController(ProductService productService, OrderService orderService, UserService userService, RoleService roleService) {
         this.productService = productService;
         this.orderService = orderService;
         this.userService = userService;
+        this.roleService = roleService;
     }
 
 
@@ -76,6 +80,16 @@ public class AdminController {
         return "users";
     }
 
+    @Secured({"ROLE_ADMIN"})
+    @GetMapping("/users/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        User u = userService.findById(id);
+        List<Role> roles = roleService.findAll();
+        model.addAttribute("user", u);
+        model.addAttribute("roles", roles);
+        return "user";
+    }
+
 
     @Secured({"ROLE_ADMIN"})
     @GetMapping("/add")
@@ -101,7 +115,7 @@ public class AdminController {
 
     @Secured({"ROLE_ADMIN"})
     @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable Long id, Model model) {
+    public String showUserEditForm(@PathVariable Long id, Model model) {
         Product p = productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product with id: " + id + " doesn't exists (for edit)"));
         model.addAttribute("product", p);
         return "product_edit_form";

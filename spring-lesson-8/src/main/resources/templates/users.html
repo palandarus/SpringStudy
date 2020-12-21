@@ -64,7 +64,7 @@
         <tr th:each="u : ${users}">
             <td th:text="${u.id}"/>
             <td th:text="${u.username}"/>
-            <td th:text="#{u.name}"/>
+            <td th:text="${u.name}"/>
             <td th:text="${u.address}"/>
             <td th:text="${u.email}"/>
             <td th:text="${u.phone}"/>
