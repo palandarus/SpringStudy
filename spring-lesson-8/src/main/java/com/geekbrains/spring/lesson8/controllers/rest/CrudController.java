@@ -3,6 +3,7 @@ package com.geekbrains.spring.lesson8.controllers.rest;
 import com.geekbrains.spring.lesson8.data.ProductData;
 import com.geekbrains.spring.lesson8.exceptions.ResourceNotFoundException;
 import com.geekbrains.spring.lesson8.facade.ProductFacade;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 

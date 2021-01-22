@@ -3,6 +3,7 @@ package com.geekbrains.spring.lesson8.entities;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.geekbrains.spring.lesson8.entities.views.OrderView;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

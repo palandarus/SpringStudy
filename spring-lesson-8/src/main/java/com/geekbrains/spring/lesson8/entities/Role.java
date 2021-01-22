@@ -1,5 +1,9 @@
 package com.geekbrains.spring.lesson8.entities;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 @Entity
 @Table(name = "roles")
 public class Role extends AbstractItem {

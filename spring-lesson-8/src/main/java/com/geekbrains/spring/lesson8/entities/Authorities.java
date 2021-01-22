@@ -1,5 +1,7 @@
 package com.geekbrains.spring.lesson8.entities;
 
+import javax.persistence.*;
+
 @Entity
 @Table(name = "authorities")
 public class Authorities {

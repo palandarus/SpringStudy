@@ -3,6 +3,8 @@ package com.geekbrains.spring.lesson8.entities;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.geekbrains.spring.lesson8.entities.views.OrderEntryView;
 
+import javax.persistence.*;
+
 @Entity
 @Table(name = "order_items")
 public class OrderEntry extends AbstractItem {

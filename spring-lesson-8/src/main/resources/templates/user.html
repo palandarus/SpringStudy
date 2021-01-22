@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <title>Shop Homepage - Start Bootstrap Template</title>
+    <th:block th:replace="~{fragments/resources :: head/link}"></th:block>
+    <th:block th:replace="~{fragments/resources :: head/script}"></th:block>
+</head>
+<body>
+<div th:replace="~{fragments/navigation :: store-navigation}"></div>
+
+<!-- Page Content -->
+<div class="container">
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <header class="card-header">
+                    <h4 class="card-title mt-2"><span>Изменение Пользователя</span></h4>
+                </header>
+                <article class="card-body">
+                    <form method="POST" th:action="@{/admin/users/edit}" th:object="${user}">
+                        <input class="form-control" th:field="*{id}" type="hidden">
+                        <div class="form-row">
+                            <div class="row form-group">
+                                <label>Имя</label>
+                                <input class="form-control" placeholder="Название" th:field="*{name}" type="text">
+                            </div>
+                            <div class="row form-group">
+                                <label>Username</label>
+                                <input class="form-control" placeholder="Бренд" th:field="*{username}" type="text">
+                            </div>
+                            <div class="row form-group">
+                                <label>Адрес</label>
+                                <input class="form-control" placeholder="Цена" th:field="*{address}" type="text">
+                            </div>
+                            <div class="row form-group">
+                                <label>Описание</label>
+                                <input class="form-control" placeholder="Цена" th:field="*{description}" type="text">
+                            </div>
+                            <div class="row form-group">
+                                <label>Email</label>
+                                <input class="form-control" placeholder="Цена" th:field="*{email}" type="text">
+                            </div>
+                            <div class="row form-group">
+                                <label>телефон</label>
+                                <input class="form-control" placeholder="Цена" th:field="*{phone}" type="text">
+                            </div>
+                            <div th:each="role, stat :${roles}">
+
+                                <input th:field="*{roles}" th:name="'role'+${role.id}" th:value="${role.id}"
+                                       type="checkbox"/>
+                                <label class="custom-control-label" th:text="${role.name}"></label>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-block" type="submit">Сохранить</button>
+                        </div>
+
+                    </form>
+                </article>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</body>
+</html>
